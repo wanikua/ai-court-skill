@@ -62,13 +62,27 @@ else
     echo -e "  ${GREEN}✓ gh CLI 安装完成${NC}"
 fi
 
-# ---- 6. Clawdbot ----
-echo -e "${YELLOW}[6/7] 安装 Clawdbot...${NC}"
+# ---- 6. Chromium（浏览器 Skill 需要：搜索/截图）----
+echo -e "${YELLOW}[6/8] 安装 Chromium...${NC}"
+if command -v chromium-browser &>/dev/null || snap list chromium &>/dev/null 2>&1; then
+    echo -e "  ${GREEN}✓ Chromium 已安装${NC}"
+else
+    sudo snap install chromium 2>/dev/null || sudo apt-get install -y chromium-browser -qq
+    echo -e "  ${GREEN}✓ Chromium 安装完成${NC}"
+fi
+if ! grep -q PUPPETEER_EXECUTABLE_PATH ~/.bashrc 2>/dev/null; then
+    CHROME_BIN="/snap/chromium/current/usr/lib/chromium-browser/chrome"
+    [ ! -f "$CHROME_BIN" ] && CHROME_BIN=$(which chromium-browser 2>/dev/null || echo "$CHROME_BIN")
+    echo "export PUPPETEER_EXECUTABLE_PATH=\"$CHROME_BIN\"" >> ~/.bashrc
+fi
+
+# ---- 7. Clawdbot ----
+echo -e "${YELLOW}[7/8] 安装 Clawdbot...${NC}"
 sudo npm install -g clawdbot --loglevel=error
 echo -e "  ${GREEN}✓ Clawdbot $(clawdbot --version 2>/dev/null) 安装完成${NC}"
 
-# ---- 7. 初始化工作区 ----
-echo -e "${YELLOW}[7/7] 初始化朝廷工作区...${NC}"
+# ---- 8. 初始化工作区 ----
+echo -e "${YELLOW}[8/8] 初始化朝廷工作区...${NC}"
 WORKSPACE="$HOME/clawd"
 CONFIG_DIR="$HOME/.clawdbot"
 mkdir -p "$WORKSPACE/memory"
@@ -116,6 +130,10 @@ echo ""
 echo -e "  ${YELLOW}2.${NC} 每个 Discord Bot 开启 Message Content Intent + Server Members Intent"
 echo ""
 echo -e "  ${YELLOW}3.${NC} systemctl --user start clawdbot-gateway"
+echo ""
+echo -e "  ${YELLOW}提示：${NC}Discord Guild ID 获取方法："
+echo "     服务器设置 → 小组件 → 服务器 ID"
+echo "     或右键服务器名 → 复制服务器 ID（需开启开发者模式）"
 echo ""
 echo -e "  教程：${BLUE}https://github.com/wanikua/ai-court-skill${NC}"
 echo ""
