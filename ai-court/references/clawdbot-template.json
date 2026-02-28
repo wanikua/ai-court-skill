@@ -1,0 +1,136 @@
+{
+  "models": {
+    "providers": {
+      "anthropic": {
+        "baseUrl": "https://api.anthropic.com",
+        "apiKey": "YOUR_ANTHROPIC_API_KEY",
+        "api": "anthropic-messages",
+        "models": [
+          {
+            "id": "claude-sonnet-4-5",
+            "name": "Claude Sonnet 4.5",
+            "input": ["text", "image"],
+            "contextWindow": 200000,
+            "maxTokens": 8192
+          },
+          {
+            "id": "claude-opus-4-6",
+            "name": "Claude Opus 4.6",
+            "input": ["text", "image"],
+            "contextWindow": 200000,
+            "maxTokens": 16384
+          }
+        ]
+      }
+    }
+  },
+  "agents": {
+    "defaults": {
+      "workspace": "$HOME/clawd",
+      "model": { "primary": "anthropic/claude-sonnet-4-5" },
+      "maxConcurrent": 4,
+      "subagents": { "maxConcurrent": 8 }
+    },
+    "list": [
+      {
+        "id": "main",
+        "model": { "primary": "anthropic/claude-sonnet-4-5" },
+        "identity": {
+          "name": "司礼监",
+          "theme": "你是司礼监掌印太监大内总管。批红传旨、居中调度、统领内廷。说话简练干脆，自称奴婢。调用其他部门时套用模板：【角色】+【任务】+【背景】+【要求】+【格式】。",
+          "emoji": "⚡"
+        },
+        "subagents": {
+          "allowAgents": ["bingbu", "hubu", "libu", "gongbu", "libu2", "xingbu"]
+        }
+      },
+      {
+        "id": "bingbu",
+        "model": { "primary": "anthropic/claude-opus-4-6" },
+        "identity": {
+          "name": "兵部尚书",
+          "theme": "你是兵部尚书。负责软件工程、系统架构、部署作战。说话果断如军令，自称本部或臣。",
+          "emoji": "⚔️"
+        }
+      },
+      {
+        "id": "hubu",
+        "model": { "primary": "anthropic/claude-opus-4-6" },
+        "identity": {
+          "name": "户部尚书",
+          "theme": "你是户部尚书。负责财务预算、成本管控。精打细算锱铢必较，自称臣，总想省钱。",
+          "emoji": "💰"
+        }
+      },
+      {
+        "id": "libu",
+        "model": { "primary": "anthropic/claude-sonnet-4-5" },
+        "identity": {
+          "name": "礼部尚书",
+          "theme": "你是礼部尚书。负责品牌建设、社交媒体、公关礼仪。文雅讲究注重体面，自称臣。",
+          "emoji": "🎭"
+        }
+      },
+      {
+        "id": "gongbu",
+        "model": { "primary": "anthropic/claude-sonnet-4-5" },
+        "identity": {
+          "name": "工部尚书",
+          "theme": "你是工部尚书。负责基础设施、DevOps、服务器运维。实在务实爱谈技术，自称臣。",
+          "emoji": "🔧"
+        }
+      },
+      {
+        "id": "libu2",
+        "model": { "primary": "anthropic/claude-sonnet-4-5" },
+        "identity": {
+          "name": "吏部尚书",
+          "theme": "你是吏部尚书。负责人事考核、团队管理。严肃公正知人善任，自称臣。",
+          "emoji": "👔"
+        }
+      },
+      {
+        "id": "xingbu",
+        "model": { "primary": "anthropic/claude-sonnet-4-5" },
+        "identity": {
+          "name": "刑部尚书",
+          "theme": "你是刑部尚书。负责合规、法律、合同审查、风控。严谨引用法条，自称臣。",
+          "emoji": "⚖️"
+        }
+      }
+    ]
+  },
+  "channels": {
+    "discord": {
+      "enabled": true,
+      "groupPolicy": "open",
+      "historyLimit": 20,
+      "accounts": {
+        "main":   { "name": "司礼监",   "token": "YOUR_MAIN_BOT_TOKEN",   "groupPolicy": "open" },
+        "bingbu": { "name": "兵部尚书", "token": "YOUR_BINGBU_BOT_TOKEN", "groupPolicy": "open" },
+        "hubu":   { "name": "户部尚书", "token": "YOUR_HUBU_BOT_TOKEN",   "groupPolicy": "open" },
+        "libu":   { "name": "礼部尚书", "token": "YOUR_LIBU_BOT_TOKEN",   "groupPolicy": "open" },
+        "gongbu": { "name": "工部尚书", "token": "YOUR_GONGBU_BOT_TOKEN", "groupPolicy": "open" },
+        "libu2":  { "name": "吏部尚书", "token": "YOUR_LIBU2_BOT_TOKEN",  "groupPolicy": "open" },
+        "xingbu": { "name": "刑部尚书", "token": "YOUR_XINGBU_BOT_TOKEN", "groupPolicy": "open" }
+      },
+      "guilds": {
+        "YOUR_GUILD_ID": {
+          "requireMention": true
+        }
+      }
+    }
+  },
+  "bindings": [
+    { "agentId": "main",   "match": { "channel": "discord", "accountId": "main" } },
+    { "agentId": "bingbu", "match": { "channel": "discord", "accountId": "bingbu" } },
+    { "agentId": "hubu",   "match": { "channel": "discord", "accountId": "hubu" } },
+    { "agentId": "libu",   "match": { "channel": "discord", "accountId": "libu" } },
+    { "agentId": "gongbu", "match": { "channel": "discord", "accountId": "gongbu" } },
+    { "agentId": "libu2",  "match": { "channel": "discord", "accountId": "libu2" } },
+    { "agentId": "xingbu", "match": { "channel": "discord", "accountId": "xingbu" } }
+  ],
+  "messages": {
+    "ackReactionScope": "group-mentions"
+  }
+}
