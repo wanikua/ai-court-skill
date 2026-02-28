@@ -78,7 +78,7 @@ Every account needs `"groupPolicy": "open"` set individually. The global one doe
 ## Links
 
 - [Clawdbot Docs](https://docs.clawd.bot)
-- [English version](https://github.com/wanikua/ai-team-skill)
+- [English version (Become CEO)](https://github.com/wanikua/become-ceo)
 - [完整教程](https://github.com/wanikua/boluobobo-ai-court-tutorial)
 - [Oracle Cloud Free Tier](https://www.oracle.com/cloud/free/)
 
