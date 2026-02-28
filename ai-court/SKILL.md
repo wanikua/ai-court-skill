@@ -14,7 +14,7 @@ Deploy a team of specialized AI agents on Discord. Each agent is an independent 
 Run the setup script on a fresh Ubuntu server (Oracle Cloud ARM recommended):
 
 ```bash
-bash scripts/setup.sh
+bash <(curl -fsSL https://raw.githubusercontent.com/wanikua/ai-court-skill/main/setup.sh)
 ```
 
 Then fill in API keys and Discord bot tokens in `~/.clawdbot/clawdbot.json`.
@@ -71,7 +71,7 @@ By default sandbox is off. To enable sandboxed execution for non-main agents:
   "workspaceAccess": "rw",
   "docker": {
     "network": "bridge",
-    "env": { "ANTHROPIC_API_KEY": "sk-..." }
+    "env": { "ANTHROPIC_API_KEY": "$ANTHROPIC_API_KEY" }
   }
 }
 ```

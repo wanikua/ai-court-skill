@@ -24,10 +24,9 @@ git clone https://github.com/wanikua/ai-court-skill.git ~/.clawdbot/skills/ai-co
 ## What's Inside
 
 ```
+setup.sh                              # One-click server setup (repo root)
 ai-court/
-├── SKILL.md                          # Skill definition
-├── scripts/
-│   └── setup.sh                      # One-click server setup
+├── SKILL.md                          # Skill definition (ClawdHub package)
 └── references/
     ├── clawdbot-template.json        # Full 7-agent config, ready to fill in
     ├── SOUL.md                       # How agents behave
