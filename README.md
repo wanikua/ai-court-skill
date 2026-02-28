@@ -1,24 +1,23 @@
-# 🏛️ AI Court Skill for Clawdbot
+# 🏛️ AI Court — Clawdbot Skill
 
-Multi-agent AI team on Discord, inspired by the Ming Dynasty Six Ministries.
+Run a whole AI team on Discord. 7 bots, each with its own brain and job title, modeled after the Ming Dynasty cabinet.
 
-7 specialized agents, each an independent Discord bot — `@兵部` writes code, `@户部` manages finances, `@everyone` triggers all.
+`@兵部` writes your code. `@户部` watches your budget. `@everyone` wakes them all up.
 
 ## Install
 
 ```bash
-# One-liner on a fresh Ubuntu server
+# Fresh Ubuntu server? One line:
 bash <(curl -fsSL https://raw.githubusercontent.com/wanikua/ai-court-skill/main/ai-court/scripts/setup.sh)
 ```
 
-Or install as a Clawdbot skill:
+Already have Clawdbot? Just clone:
 
 ```bash
-# Clone into your skills directory
 git clone https://github.com/wanikua/ai-court-skill.git ~/.clawdbot/skills/ai-court
 ```
 
-## What You Get
+## What's Inside
 
 ```
 ai-court/
@@ -26,42 +25,42 @@ ai-court/
 ├── scripts/
 │   └── setup.sh                      # One-click server setup
 └── references/
-    ├── clawdbot-template.json        # Full config template (7 agents)
-    ├── SOUL.md                       # Agent behavior rules
-    ├── IDENTITY.md                   # Org structure
-    ├── USER.md                       # Owner info template
-    └── AGENTS.md                     # Group chat & memory protocol
+    ├── clawdbot-template.json        # Full 7-agent config, ready to fill in
+    ├── SOUL.md                       # How agents behave
+    ├── IDENTITY.md                   # Org chart
+    ├── USER.md                       # About you (fill this in)
+    └── AGENTS.md                     # Group chat + memory rules
 ```
 
-## Quick Start
+## Get It Running
 
-1. Run `setup.sh` (installs Node.js, Clawdbot, initializes workspace)
-2. Fill in `~/.clawdbot/clawdbot.json`:
+1. Run `setup.sh` — handles Node.js, Clawdbot, workspace, everything
+2. Open `~/.clawdbot/clawdbot.json`, fill in:
    - Anthropic API Key → [console.anthropic.com](https://console.anthropic.com)
    - Discord Bot Tokens (one per agent) → [discord.com/developers](https://discord.com/developers/applications)
-3. Each bot: enable **Message Content Intent** + **Server Members Intent**
-4. `systemctl --user start clawdbot-gateway`
+3. For each bot, flip on **Message Content Intent** + **Server Members Intent**
+4. `systemctl --user start clawdbot-gateway` — done
 
-## Agents
+## The Team
 
-| Agent | Role | Model |
+| Agent | Job | Model |
 |---|---|---|
-| 司礼监 (main) | Dispatcher, orchestration | Sonnet |
-| 兵部 | Software engineering, architecture | Opus |
-| 户部 | Finance, cost control | Opus |
-| 礼部 | Marketing, content | Sonnet |
-| 工部 | DevOps, infrastructure | Sonnet |
-| 吏部 | Project management | Sonnet |
-| 刑部 | Legal, compliance | Sonnet |
+| 司礼监 (main) | Dispatcher — routes tasks to the right agent | Sonnet |
+| 兵部 | Engineering — code, architecture, deploys | Opus |
+| 户部 | Finance — budgets, cost analysis | Opus |
+| 礼部 | Marketing — content, branding, social | Sonnet |
+| 工部 | DevOps — servers, CI/CD, infra | Sonnet |
+| 吏部 | Management — projects, hiring, coordination | Sonnet |
+| 刑部 | Legal — compliance, contracts, IP | Sonnet |
 
-Add more agents by extending `agents.list`, `channels.discord.accounts`, and `bindings`.
+Want more? Add agents to `agents.list`, `channels.discord.accounts`, and `bindings`.
 
-## FAQ
+## Common Gotchas
 
-**@everyone doesn't trigger agents?**
-Enable **Message Content Intent** + **Server Members Intent** in Discord Developer Portal. Bot role needs **View Channels** permission.
+**@everyone does nothing?**
+Check Discord Developer Portal — each bot needs **Message Content Intent** + **Server Members Intent** on. Bot role needs **View Channels**.
 
-**Sandbox permission errors?**
+**Agents can't write files (sandbox)?**
 ```json
 "sandbox": {
   "mode": "all",
@@ -73,13 +72,13 @@ Enable **Message Content Intent** + **Server Members Intent** in Discord Develop
 }
 ```
 
-**Agents silently drop messages?**
-Each account must have `"groupPolicy": "open"` explicitly — it does NOT inherit from global config.
+**Messages silently disappear?**
+Every account needs `"groupPolicy": "open"` set individually. The global one doesn't cascade down — this trips up everyone.
 
 ## Links
 
 - [Clawdbot Docs](https://docs.clawd.bot)
-- [Tutorial (教程)](https://github.com/wanikua/boluobobo-ai-court-tutorial)
+- [Full Tutorial (中文教程)](https://github.com/wanikua/boluobobo-ai-court-tutorial)
 - [Oracle Cloud Free Tier](https://www.oracle.com/cloud/free/)
 
 ## License
