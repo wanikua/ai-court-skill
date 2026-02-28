@@ -11,9 +11,13 @@ Run a whole AI team on Discord. 7 bots, each with its own brain and job title, m
 bash <(curl -fsSL https://raw.githubusercontent.com/wanikua/ai-court-skill/main/ai-court/scripts/setup.sh)
 ```
 
-Already have Clawdbot? Just clone:
+Already have Clawdbot?
 
 ```bash
+# 从 ClawdHub 安装（推荐）：
+clawdhub install ai-court
+
+# 或直接 clone：
 git clone https://github.com/wanikua/ai-court-skill.git ~/.clawdbot/skills/ai-court
 ```
 
