@@ -21,16 +21,6 @@ For full server setup (Node.js, Chromium, firewall, swap), see the [setup guide 
 
 ## Architecture
 
-```
-用户 @兵部 写个登录API
-       ↓
-Discord → Clawdbot Gateway → Agent (Claude Opus)
-                                ↓
-                         读取 SOUL.md / IDENTITY.md
-                                ↓
-                           执行任务 → 回复
-```
-
 - **司礼监** (main) — 调度中枢，Sonnet 快速响应
 - **兵部** — 软件工程、架构（Opus）
 - **户部** — 财务、成本（Opus）
@@ -39,69 +29,46 @@ Discord → Clawdbot Gateway → Agent (Claude Opus)
 - **吏部** — 项目管理（Sonnet）
 - **刑部** — 法务合规（Sonnet）
 
-Extend with more agents as needed (都察院、翰林院、太医院...).
+## Config
 
-## Config Template
+See [references/clawdbot-template.json](references/clawdbot-template.json) for the full config template.
 
-Full config template: [references/clawdbot-template.json](references/clawdbot-template.json)
-
-Key points:
-- Each Discord account **MUST** have `"groupPolicy": "open"` explicitly — it does NOT inherit from the global setting
-- `identity.theme` defines the agent's persona and speaking style
-- `bindings` maps each agent to its Discord bot account
+- Each Discord account **MUST** have `"groupPolicy": "open"` explicitly
+- `identity.theme` defines the agent's persona
+- `bindings` maps each agent to its Discord bot
 
 ## Workspace Files
 
-The setup script creates these in the workspace directory:
-
 | File | Purpose |
 |---|---|
-| `SOUL.md` | Core behavior rules (concise, report promptly, think before act) |
+| `SOUL.md` | Core behavior rules |
 | `IDENTITY.md` | Org structure and model tiers |
 | `USER.md` | Info about the human owner |
-| `AGENTS.md` | Group chat rules, memory protocol, heartbeat behavior |
+| `AGENTS.md` | Group chat rules, memory protocol |
 
-## Sandbox Configuration
+## Sandbox
 
-By default sandbox is off. To enable sandboxed execution for non-main agents:
+Off by default. To enable read-only sandboxed execution:
 
 ```json
 "sandbox": {
   "mode": "all",
   "workspaceAccess": "ro",
-  "docker": {
-    "network": "none"
-  }
+  "docker": { "network": "none" }
 }
 ```
 
-The sandbox settings above use secure defaults. You can adjust them to fit your needs:
-
-| Setting | Default | Options | Notes |
-|---|---|---|---|
-| `workspaceAccess` | `"ro"` | `"ro"`, `"rw"` | `"rw"` lets agents write to the workspace (including skills). Only use if agents need to create/edit files. |
-| `docker.network` | `"none"` | `"none"`, `"bridge"` | `"bridge"` gives container network access. Only enable if agents need to call external APIs. |
-| `docker.env` | _(omitted)_ | e.g. `{"KEY": "$KEY"}` | Pass env vars into the container. The gateway already handles API auth, so this is usually unnecessary. |
+Agents run in isolated containers with read-only workspace access and no network. The gateway handles all API authentication externally — agents do not need direct access to keys. See [Clawdbot docs](https://github.com/wanikua/ai-court-skill) for advanced sandbox options.
 
 ## Troubleshooting
 
-### @everyone doesn't trigger agents
-Each bot needs **Message Content Intent** + **Server Members Intent** enabled in Discord Developer Portal, and the bot role needs **View Channels** permission in the server.
-
-### Agent can't write files
-Set `sandbox.mode: "off"` for that agent, or change `workspaceAccess` to `"rw"`.
-
-### Agent drops all group messages silently
-Each Discord account entry must have `"groupPolicy": "open"` set explicitly. The global `groupPolicy` is NOT inherited by individual accounts — they default to `"allowlist"`.
-
-### Model config errors
-Only `"primary"` key is supported under `agents.defaults.model`. No `tools`/`coding` sub-keys.
+- **@everyone doesn't trigger agents** — enable Message Content Intent + Server Members Intent in Discord Developer Portal
+- **Agent drops messages** — set `"groupPolicy": "open"` on each Discord account entry
+- **Model config errors** — only `"primary"` key under `agents.defaults.model`
 
 ## Adding More Agents
 
 1. Add agent to `agents.list` with unique `id` and `identity.theme`
-2. Create a Discord bot at [discord.com/developers](https://discord.com/developers/applications)
-3. Enable **Message Content Intent** + **Server Members Intent**
-4. Add account entry in `channels.discord.accounts` with token and `"groupPolicy": "open"`
-5. Add binding in `bindings` array
-6. Invite bot to server, restart gateway
+2. Create Discord bot, enable intents
+3. Add account in `channels.discord.accounts` with `"groupPolicy": "open"`
+4. Add binding, invite bot, restart gateway

@@ -3,7 +3,7 @@
     "providers": {
       "anthropic": {
         "baseUrl": "https://api.anthropic.com",
-        "apiKey": "YOUR_ANTHROPIC_API_KEY",
+        "apiKey": "$ANTHROPIC_API_KEY",
         "api": "anthropic-messages",
         "models": [
           {
@@ -106,16 +106,16 @@
       "groupPolicy": "open",
       "historyLimit": 20,
       "accounts": {
-        "main":   { "name": "司礼监",   "token": "YOUR_MAIN_BOT_TOKEN",   "groupPolicy": "open" },
-        "bingbu": { "name": "兵部尚书", "token": "YOUR_BINGBU_BOT_TOKEN", "groupPolicy": "open" },
-        "hubu":   { "name": "户部尚书", "token": "YOUR_HUBU_BOT_TOKEN",   "groupPolicy": "open" },
-        "libu":   { "name": "礼部尚书", "token": "YOUR_LIBU_BOT_TOKEN",   "groupPolicy": "open" },
-        "gongbu": { "name": "工部尚书", "token": "YOUR_GONGBU_BOT_TOKEN", "groupPolicy": "open" },
-        "libu2":  { "name": "吏部尚书", "token": "YOUR_LIBU2_BOT_TOKEN",  "groupPolicy": "open" },
-        "xingbu": { "name": "刑部尚书", "token": "YOUR_XINGBU_BOT_TOKEN", "groupPolicy": "open" }
+        "main":   { "name": "司礼监",   "token": "$DISCORD_BOT_TOKEN",   "groupPolicy": "open" },
+        "bingbu": { "name": "兵部尚书", "token": "$DISCORD_BOT_TOKEN", "groupPolicy": "open" },
+        "hubu":   { "name": "户部尚书", "token": "$DISCORD_BOT_TOKEN",   "groupPolicy": "open" },
+        "libu":   { "name": "礼部尚书", "token": "$DISCORD_BOT_TOKEN",   "groupPolicy": "open" },
+        "gongbu": { "name": "工部尚书", "token": "$DISCORD_BOT_TOKEN", "groupPolicy": "open" },
+        "libu2":  { "name": "吏部尚书", "token": "$DISCORD_BOT_TOKEN",  "groupPolicy": "open" },
+        "xingbu": { "name": "刑部尚书", "token": "$DISCORD_BOT_TOKEN", "groupPolicy": "open" }
       },
       "guilds": {
-        "YOUR_GUILD_ID": {
+        "$DISCORD_GUILD_ID": {
           "requireMention": true
         }
       }
