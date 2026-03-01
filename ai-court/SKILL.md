@@ -2,7 +2,7 @@
 name: ai-court
 description: "Deploy a multi-agent AI team on Discord using Clawdbot, inspired by the Ming Dynasty Six Ministries. Use when setting up, configuring, scaling, or troubleshooting a multi-bot Discord workspace with specialized agents (coding, finance, marketing, DevOps, legal, etc.)."
 homepage: https://github.com/wanikua/ai-court-skill
-metadata: {"clawdbot":{"emoji":"🏛️","requires":{"bins":["clawdbot"]},"install":[{"id":"node","kind":"node","package":"clawdbot","bins":["clawdbot"],"label":"Install Clawdbot"}]}}
+metadata: {"clawdbot":{"emoji":"🏛️","requires":{"bins":["clawdbot"]},"credentials":["ANTHROPIC_API_KEY","DISCORD_BOT_TOKEN"],"configs":["~/.clawdbot/clawdbot.json"],"install":[{"id":"node","kind":"node","package":"clawdbot","bins":["clawdbot"],"label":"Install Clawdbot"}]}}
 ---
 
 # AI 朝廷 — Multi-Agent Discord Workspace
