@@ -1,7 +1,7 @@
 #!/bin/bash
 # ============================================
 # AI 朝廷一键部署
-# Ubuntu 22.04/24.04 (Oracle Cloud ARM recommended)
+# Ubuntu 22.04/24.04
 # ============================================
 set -e
 
@@ -125,7 +125,7 @@ echo ""
 echo "下一步："
 echo ""
 echo -e "  ${YELLOW}1.${NC} 编辑 ~/.clawdbot/clawdbot.json"
-echo "     填入 Anthropic API Key + Discord Bot Token"
+echo "     填入 LLM API Key + Discord Bot Token"
 echo ""
 echo -e "  ${YELLOW}2.${NC} 每个 Discord Bot 开启 Message Content Intent + Server Members Intent"
 echo ""
