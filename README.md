@@ -86,6 +86,33 @@ Every account needs `"groupPolicy": "open"` set individually. The global one doe
 - [完整教程](https://github.com/wanikua/boluobobo-ai-court-tutorial)
 - [Oracle Cloud Free Tier](https://www.oracle.com/cloud/free/)
 
+## ⚠️ Disclaimer
+
+This project is provided "as is" without any warranties.
+
+**Please note:**
+
+1. **AI-generated content is for reference only**
+   - Code, suggestions, etc. may contain errors
+   - Please review before using in production
+
+2. **Code Security**
+   - Review AI-generated code before merging
+   - Human review required for financial/sensitive operations
+
+3. **API Key Security**
+   - Keep your API keys safe
+   - Don't commit config files with keys to public repos
+
+4. **Server Costs**
+   - Free servers (Oracle Cloud, etc.) have limits
+   - Excess usage may incur charges
+
+5. **Data Backup**
+   - Regularly backup your workspace
+
+---
+
 ## License
 
 MIT
