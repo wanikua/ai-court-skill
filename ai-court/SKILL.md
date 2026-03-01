@@ -11,13 +11,13 @@ Deploy a team of specialized AI agents on Discord. Each agent is an independent 
 
 ## Quick Start
 
-Run the setup script on a fresh Ubuntu server (Oracle Cloud ARM recommended):
+1. Install Clawdbot: `npm install -g clawdbot`
+2. Install this skill: `clawdhub install ai-court`
+3. Copy `references/clawdbot-template.json` to `~/.clawdbot/clawdbot.json`
+4. Fill in your Anthropic API key and Discord bot tokens
+5. Start: `systemctl --user start clawdbot-gateway`
 
-```bash
-bash scripts/setup.sh
-```
-
-Then fill in API keys and Discord bot tokens in `~/.clawdbot/clawdbot.json`.
+For full server setup (Node.js, Chromium, firewall, swap), see the [setup guide on GitHub](https://github.com/wanikua/ai-court-skill).
 
 ## Architecture
 
@@ -68,17 +68,20 @@ By default sandbox is off. To enable sandboxed execution for non-main agents:
 ```json
 "sandbox": {
   "mode": "all",
-  "workspaceAccess": "rw",
+  "workspaceAccess": "ro",
   "docker": {
-    "network": "bridge",
-    "env": { "ANTHROPIC_API_KEY": "sk-..." }
+    "network": "none"
   }
 }
 ```
 
-- `workspaceAccess: "rw"` — mount workspace (including skills folder) read-write
-- `docker.network: "bridge"` — allow network access (default is `"none"`, breaks most skills)
-- `docker.env` — pass API keys into the container (sandbox does NOT inherit host env vars)
+The sandbox settings above use secure defaults. You can adjust them to fit your needs:
+
+| Setting | Default | Options | Notes |
+|---|---|---|---|
+| `workspaceAccess` | `"ro"` | `"ro"`, `"rw"` | `"rw"` lets agents write to the workspace (including skills). Only use if agents need to create/edit files. |
+| `docker.network` | `"none"` | `"none"`, `"bridge"` | `"bridge"` gives container network access. Only enable if agents need to call external APIs. |
+| `docker.env` | _(omitted)_ | e.g. `{"KEY": "$KEY"}` | Pass env vars into the container. The gateway already handles API auth, so this is usually unnecessary. |
 
 ## Troubleshooting
 
@@ -86,7 +89,7 @@ By default sandbox is off. To enable sandboxed execution for non-main agents:
 Each bot needs **Message Content Intent** + **Server Members Intent** enabled in Discord Developer Portal, and the bot role needs **View Channels** permission in the server.
 
 ### Agent can't write files
-Either set `sandbox.mode: "off"`, or configure `workspaceAccess`, `docker.network`, and `docker.env` as shown above.
+Set `sandbox.mode: "off"` for that agent, or change `workspaceAccess` to `"rw"`.
 
 ### Agent drops all group messages silently
 Each Discord account entry must have `"groupPolicy": "open"` set explicitly. The global `groupPolicy` is NOT inherited by individual accounts — they default to `"allowlist"`.
