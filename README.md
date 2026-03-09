@@ -73,6 +73,10 @@ Every account needs `"groupPolicy": "open"` set individually. The global one doe
 - [English version (Become CEO)](https://github.com/wanikua/become-ceo)
 - [完整教程](https://github.com/wanikua/boluobobo-ai-court-tutorial)
 
+## 🤝 推荐
+
+- 🎁 [MiniMax Coding Plan](https://platform.minimaxi.com/subscribe/coding-plan?code=CIeSxc2iq2&source=link) — 88折专属优惠 + Builder 权益
+
 ## 免责声明
 
 本项目按"原样"提供，不承担任何直接或间接责任。
