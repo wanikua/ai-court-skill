@@ -1,9 +1,0 @@
-.clawdbot/
-clawdbot.json
-*.key
-*.pem
-.env
-.env.local
-.DS_Store
-.vscode/
-.idea/
