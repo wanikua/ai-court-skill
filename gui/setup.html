@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Court - 一键部署向导</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+    .container { background: white; border-radius: 16px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); max-width: 600px; width: 100%; padding: 40px; }
+    h1 { color: #333; margin-bottom: 10px; font-size: 28px; }
+    .subtitle { color: #666; margin-bottom: 30px; }
+    .step { margin-bottom: 30px; }
+    .step-title { font-size: 18px; font-weight: 600; color: #333; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; }
+    .step-number { background: #667eea; color: white; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; }
+    .option { border: 2px solid #e0e0e0; border-radius: 8px; padding: 15px; margin-bottom: 10px; cursor: pointer; transition: all 0.3s; }
+    .option:hover { border-color: #667eea; background: #f5f7ff; }
+    .option.selected { border-color: #667eea; background: #667eea; color: white; }
+    .option h3 { font-size: 16px; margin-bottom: 5px; }
+    .option p { font-size: 14px; opacity: 0.8; }
+    .btn { background: #667eea; color: white; border: none; padding: 15px 30px; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; width: 100%; transition: all 0.3s; }
+    .btn:hover { background: #5568d3; transform: translateY(-2px); }
+    .btn:disabled { background: #ccc; cursor: not-allowed; transform: none; }
+    input, select { width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px; margin-bottom: 15px; }
+    input:focus, select:focus { outline: none; border-color: #667eea; }
+    .hidden { display: none; }
+    .success { background: #48bb78; color: white; padding: 15px; border-radius: 8px; margin-top: 20px; }
+    .error { background: #f56565; color: white; padding: 15px; border-radius: 8px; margin-top: 20px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🏛️ AI Court 一键部署</h1>
+    <p class="subtitle">3 分钟完成部署，拥有你的 AI 朝廷</p>
+
+    <form id="deployForm">
+      <!-- Step 1: 选择平台 -->
+      <div class="step">
+        <div class="step-title">
+          <span class="step-number">1</span>
+          选择部署平台
+        </div>
+        <div class="option selected" data-platform="railway">
+          <h3>🚂 Railway</h3>
+          <p>推荐！免费额度，自动部署，最简单</p>
+        </div>
+        <div class="option" data-platform="zeabur">
+          <h3>⚡ Zeabur</h3>
+          <p>国产平台，访问速度快，支持微信登录</p>
+        </div>
+        <div class="option" data-platform="render">
+          <h3>🎨 Render</h3>
+          <p>稳定可靠，免费套餐，适合长期使用</p>
+        </div>
+      </div>
+
+      <!-- Step 2: 选择制度 -->
+      <div class="step">
+        <div class="step-title">
+          <span class="step-number">2</span>
+          选择朝廷制度
+        </div>
+        <select id="regime">
+          <option value="ming-neige">明朝内阁制（推荐）</option>
+          <option value="tang-sansheng">唐朝三省制</option>
+          <option value="modern-ceo">现代企业制</option>
+        </select>
+      </div>
+
+      <!-- Step 3: 配置 API -->
+      <div class="step">
+        <div class="step-title">
+          <span class="step-number">3</span>
+          配置 AI 模型
+        </div>
+        <select id="provider">
+          <option value="dashscope">阿里 DashScope（推荐，国内）</option>
+          <option value="openai">OpenAI（需要代理）</option>
+          <option value="anthropic">Anthropic Claude（需要代理）</option>
+          <option value="deepseek">DeepSeek（国产）</option>
+        </select>
+        <input type="password" id="apiKey" placeholder="输入 API Key" required>
+        <p style="font-size: 12px; color: #666;">
+          🔑 <a href="https://dashscope.console.aliyun.com/apiKey" target="_blank">获取阿里 API Key</a> | 
+          <a href="https://platform.deepseek.com/api_keys" target="_blank">获取 DeepSeek API Key</a>
+        </p>
+      </div>
+
+      <!-- Step 4: Discord 配置（可选） -->
+      <div class="step">
+        <div class="step-title">
+          <span class="step-number">4</span>
+          Discord 配置（可选）
+        </div>
+        <input type="text" id="discordToken" placeholder="Discord Bot Token">
+        <input type="text" id="discordGroupId" placeholder="Discord 群组 ID">
+        <p style="font-size: 12px; color: #666;">
+          暂时跳过也可以，后续在配置文件中添加
+        </p>
+      </div>
+
+      <button type="submit" class="btn">🚀 开始部署</button>
+    </form>
+
+    <div id="result" class="hidden"></div>
+  </div>
+
+  <script>
+    // Platform selection
+    document.querySelectorAll('.option').forEach(opt => {
+      opt.addEventListener('click', () => {
+        document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+      });
+    });
+
+    // Form submission
+    document.getElementById('deployForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = e.target.querySelector('.btn');
+      const result = document.getElementById('result');
+      
+      btn.disabled = true;
+      btn.textContent = '⏳ 正在部署...';
+
+      const config = {
+        platform: document.querySelector('.option.selected').dataset.platform,
+        regime: document.getElementById('regime').value,
+        provider: document.getElementById('provider').value,
+        apiKey: document.getElementById('apiKey').value,
+        discordToken: document.getElementById('discordToken').value,
+        discordGroupId: document.getElementById('discordGroupId').value
+      };
+
+      try {
+        // Generate deployment URL
+        let deployUrl;
+        switch(config.platform) {
+          case 'railway':
+            deployUrl = `https://railway.app/template/ai-court?referralCode=YOUR_CODE`;
+            break;
+          case 'zeabur':
+            deployUrl = `https://zeabur.com/templates/ai-court`;
+            break;
+          case 'render':
+            deployUrl = `https://render.com/deploy?repo=https://github.com/wanikua/ai-court-skill`;
+            break;
+        }
+
+        result.innerHTML = `
+          <div class="success">
+            <h3>✅ 部署已启动！</h3>
+            <p>正在跳转到 ${config.platform} 进行部署...</p>
+            <p style="margin-top: 10px;">
+              <a href="${deployUrl}" target="_blank" class="btn" style="display: inline-block; text-decoration: none; margin-top: 10px;">
+                前往部署页面 →
+              </a>
+            </p>
+          </div>
+        `;
+        
+        // Auto redirect after 2 seconds
+        setTimeout(() => {
+          window.open(deployUrl, '_blank');
+        }, 2000);
+        
+      } catch (error) {
+        result.innerHTML = `<div class="error">❌ 部署失败：${error.message}</div>`;
+      } finally {
+        btn.disabled = false;
+        btn.textContent = '🚀 开始部署';
+      }
+    });
+  </script>
+</body>
+</html>
