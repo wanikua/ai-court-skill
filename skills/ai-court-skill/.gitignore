@@ -5,12 +5,20 @@
 # 运行时文件
 node_modules/
 .clawdhub/
+dist/
+build/
 
 # 备份文件
 *.bak
 *.backup
 *.gz
+*.zip
 
 # 系统文件
 .DS_Store
 Thumbs.db
+*.log
+
+# IDE
+.vscode/
+.idea/
