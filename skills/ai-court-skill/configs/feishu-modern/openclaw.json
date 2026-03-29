@@ -291,101 +291,66 @@
   },
   "bindings": [
     {
-      "agentId": "board",
-      "match": {
-        "channel": "discord",
-        "accountId": "board"
-      }
-    },
-    {
       "agentId": "ceo",
       "match": {
-        "channel": "discord",
-        "accountId": "ceo"
+        "channel": "feishu",
+        "account": "ceo"
       }
     },
     {
-      "agentId": "cto",
+      "agentId": "board",
       "match": {
-        "channel": "discord",
-        "accountId": "cto"
-      }
-    },
-    {
-      "agentId": "coo",
-      "match": {
-        "channel": "discord",
-        "accountId": "coo"
-      }
-    },
-    {
-      "agentId": "cfo",
-      "match": {
-        "channel": "discord",
-        "accountId": "cfo"
-      }
-    },
-    {
-      "agentId": "cmo",
-      "match": {
-        "channel": "discord",
-        "accountId": "cmo"
-      }
-    },
-    {
-      "agentId": "eng",
-      "match": {
-        "channel": "discord",
-        "accountId": "eng"
-      }
-    },
-    {
-      "agentId": "prod",
-      "match": {
-        "channel": "discord",
-        "accountId": "prod"
+        "channel": "feishu",
+        "account": "board"
       }
     },
     {
       "agentId": "qa",
       "match": {
-        "channel": "discord",
-        "accountId": "qa"
+        "channel": "feishu",
+        "account": "qa"
       }
     },
     {
-      "agentId": "sales",
+      "agentId": "cto",
       "match": {
-        "channel": "discord",
-        "accountId": "sales"
+        "channel": "feishu",
+        "account": "cto"
       }
     },
     {
-      "agentId": "cs",
+      "agentId": "cfo",
       "match": {
-        "channel": "discord",
-        "accountId": "cs"
+        "channel": "feishu",
+        "account": "cfo"
       }
     },
     {
-      "agentId": "hr",
+      "agentId": "cmo",
       "match": {
-        "channel": "discord",
-        "accountId": "hr"
+        "channel": "feishu",
+        "account": "cmo"
       }
     },
     {
-      "agentId": "legal",
+      "agentId": "coo",
       "match": {
-        "channel": "discord",
-        "accountId": "legal"
+        "channel": "feishu",
+        "account": "coo"
       }
     },
     {
-      "agentId": "data",
+      "agentId": "clo",
       "match": {
-        "channel": "discord",
-        "accountId": "data"
+        "channel": "feishu",
+        "account": "clo"
+      }
+    },
+    {
+      "agentId": "cos",
+      "match": {
+        "channel": "feishu",
+        "account": "cos"
       }
     }
   ]
