@@ -1,0 +1,16 @@
+# 敏感信息
+.env
+*.local.json
+
+# 运行时文件
+node_modules/
+.clawdhub/
+
+# 备份文件
+*.bak
+*.backup
+*.gz
+
+# 系统文件
+.DS_Store
+Thumbs.db

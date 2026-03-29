@@ -1,0 +1,25 @@
+{
+  "name": "ai-court-skill",
+  "version": "1.0.0",
+  "description": "AI 朝廷多 Agent 协作技能 - 三省六部制",
+  "keywords": [
+    "openclaw",
+    "skill",
+    "multi-agent",
+    "ai-court",
+    "三省六部",
+    "明朝",
+    "唐朝",
+    "现代企业"
+  ],
+  "author": "菠萝王朝团队",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wanikua/ai-court-skill.git"
+  },
+  "homepage": "https://github.com/wanikua/ai-court-skill#readme",
+  "bugs": {
+    "url": "https://github.com/wanikua/ai-court-skill/issues"
+  }
+}

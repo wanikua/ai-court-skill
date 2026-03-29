@@ -1,0 +1,11 @@
+{
+  "ownerId": "kn70yzag7nfv6ybp1dvq6hezss820q23",
+  "slug": "ai-court",
+  "version": "2.0.0",
+  "name": "AI Court",
+  "description": "以明朝内阁制为蓝本的多 Agent 协作系统",
+  "author": "菠萝菠菠",
+  "license": "MIT",
+  "tags": ["multi-agent", "openclaw", "china-style", "management"],
+  "category": "framework"
+}
