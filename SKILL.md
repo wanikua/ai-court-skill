@@ -85,6 +85,31 @@ openclaw start
 - `references/config-guide.md` - 配置指南
 - `references/troubleshooting.md` - 故障排除
 
+## Docker 部署
+
+**镜像**: `boluobobo/ai-court:latest`
+
+**默认模式**:
+```bash
+docker run -d --name ai-court \
+  -p 127.0.0.1:18789:18789 \
+  -p 127.0.0.1:18795:18795 \
+  boluobobo/ai-court:latest
+```
+
+**连接外部 OpenClaw**:
+```bash
+docker run -d --name ai-court-external \
+  -p 127.0.0.1:18796:18795 \
+  -e ENABLE_EXTERNAL_CLAW=true \
+  -e OPENCLAW_HOST=host.docker.internal \
+  -e OPENCLAW_PORT=18789 \
+  boluobobo/ai-court:latest
+```
+
+详见：`references/docker-config.md`
+
 ## 链接
 
-GitHub: https://github.com/wanikua/ai-court-skill
+- GitHub (Skill): https://github.com/wanikua/ai-court-skill
+- GitHub (Docker): https://github.com/wanikua/danghuangshang
