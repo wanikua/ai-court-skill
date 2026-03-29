@@ -1,0 +1,19 @@
+# GitGuardian 配置文件
+# 忽略误报的 ownerId
+
+version: 2
+
+# 忽略特定路径
+paths-ignore:
+  - '_meta.json'
+
+# 忽略特定检测
+detectors-ignore:
+  - Generic High Entropy Secret
+
+# 或者使用更精确的忽略
+# ignored-matches:
+#   - reason: "OpenClaw ownerId is public identifier, not a secret"
+#     detector: "Generic High Entropy Secret"
+#     files:
+#       - "_meta.json"
